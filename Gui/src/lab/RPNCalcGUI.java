@@ -5,58 +5,79 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class RPNCalcGUI extends JFrame{
-   private RPNCalcGUIHelper helper;
-   private JLabel nameLabel = new JLabel("RPN Calculator");
-   private JTextField nameField = new JTextField(20);
-   private static final int ROWS = 3;  // Button rows
-   private static final int COLS = 5;  // Button columns
-   private JButton[] buttons = new JButton[ROWS * COLS];
-   private JPanel[] panels = new JPanel[ROWS * COLS];
+public class RPNCalcGUI extends JFrame {
+   private              RPNCalcGUIHelper helper;
+   private              JTextField       displayField = new JTextField(100);
+   private static final int              ROWS      = 3;  // Button rows
+   private static final int              COLS      = 6;  // Button columns
+   private              JButton[]        buttons   = new JButton[ROWS * COLS];
+   private              JPanel[]         panels    = new JPanel[ROWS * COLS];
 
-   public RPNCalcGUI(){
+   public RPNCalcGUI() {
       super("Getting GUI");
 
+      setSize(250, 250);
+      setLocation(300,200);
+
+      Container contentPane = getContentPane();
+      contentPane.setLayout(new BorderLayout());
+
+      this.add(buildDisplayPanel(), BorderLayout.NORTH);
+      this.add(buildKeyPadPanel(), BorderLayout.CENTER);
+
+      JPanel displayPanel = new JPanel();
+      JPanel tempPanel;
+
+      setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+      SwingUtilities.invokeLater(new Runnable() {
+         @Override
+         public void run() {
+            setVisible(true);
+         }
+      });
    }
-   private JPanel buildDisplayPanel(){
-      this.add(buildDisplayPanel(),BorderLayout.NORTH);
+
+   private JPanel buildDisplayPanel() {
+      // this.add(buildDisplayPanel(), BorderLayout.NORTH);
       JPanel displayPanel = new JPanel();
       JPanel tempPanel;
 
       displayPanel.setLayout(new GridLayout(3,1));
 
       tempPanel = new JPanel();
-      tempPanel.add(nameLabel);
-      displayPanel.add(tempPanel);
 
-      tempPanel = new JPanel();
-      tempPanel.add(nameField);
+      tempPanel.add(displayField);
       displayPanel.add(tempPanel);
 
       return displayPanel;
    }
-   private JPanel buildKeyPadPanel(){
-      setTitle("Getting GUI");
-      this.add(buildKeyPadPanel(), BorderLayout.CENTER);
-      Container contentPane = getContentPane();
-      contentPane.setLayout(new GridLayout(ROWS, COLS));
 
+   private JPanel buildKeyPadPanel() {
+      JPanel keyPad = new JPanel();
+
+      setLayout(new GridLayout(ROWS, COLS));
       for (int i = 0; i < ROWS * COLS; i++) {
          buttons[i] = new JButton();
-         buttons[i].setText(" " + (i+1));
+         buttons[i].setText(" " + (i + 1));
          buttons[i].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               ((JButton)e.getSource()).setText("clicked");
+               ((JButton) e.getSource()).setText("click");      // FIXME:
             }
          });
          panels[i] = new JPanel();
          panels[i].add(buttons[i]);
-         contentPane.add(panels[i]);
+         keyPad.add(panels[i]);
       }
       setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-         return null; //FIXME:
+      SwingUtilities.invokeLater(new Runnable() {
+         @Override
+         public void run() {
+            setVisible(true);
+         }
+      }); return keyPad;
    }
+
    public static void main(String[] args) {
       new RPNCalcGUI();
    }
