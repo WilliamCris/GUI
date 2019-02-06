@@ -7,17 +7,37 @@ import java.awt.event.ActionListener;
 
 public class RPNCalcGUI extends JFrame{
    private RPNCalcGUIHelper helper;
+   private JLabel nameLabel = new JLabel("RPN Calculator");
+   private JTextField nameField = new JTextField(20);
    private static final int ROWS = 3;  // Button rows
    private static final int COLS = 5;  // Button columns
    private JButton[] buttons = new JButton[ROWS * COLS];
    private JPanel[] panels = new JPanel[ROWS * COLS];
 
-   public static void main(String[] args) {
-      new RPNCalcGUI();
-   }
-
    public RPNCalcGUI(){
       super("Getting GUI");
+
+   }
+   private JPanel buildDisplayPanel(){
+      this.add(buildDisplayPanel(),BorderLayout.NORTH);
+      JPanel displayPanel = new JPanel();
+      JPanel tempPanel;
+
+      displayPanel.setLayout(new GridLayout(3,1));
+
+      tempPanel = new JPanel();
+      tempPanel.add(nameLabel);
+      displayPanel.add(tempPanel);
+
+      tempPanel = new JPanel();
+      tempPanel.add(nameField);
+      displayPanel.add(tempPanel);
+
+      return displayPanel;
+   }
+   private JPanel buildKeyPadPanel(){
+      setTitle("Getting GUI");
+      this.add(buildKeyPadPanel(), BorderLayout.CENTER);
       Container contentPane = getContentPane();
       contentPane.setLayout(new GridLayout(ROWS, COLS));
 
@@ -35,11 +55,9 @@ public class RPNCalcGUI extends JFrame{
          contentPane.add(panels[i]);
       }
       setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+         return null; //FIXME:
    }
-   private JPanel buildDisplayPanel(){
-      return null;
-   }
-   private JPanel buildKeyPadPanel(){
-      return null;
+   public static void main(String[] args) {
+      new RPNCalcGUI();
    }
 }
