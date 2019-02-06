@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class RPNCalcGUI extends JFrame {
-   private              RPNCalcGUIHelper helper;
+   private              RPNCalcGUIHelper helper = new RPNCalcGUIHelper();
    private              JTextField       displayField = new JTextField(100);
    private static final int              ROWS      = 3;  // Button rows
    private static final int              COLS      = 6;  // Button columns
@@ -55,14 +55,16 @@ public class RPNCalcGUI extends JFrame {
    private JPanel buildKeyPadPanel() {
       JPanel keyPad = new JPanel();
 
-      setLayout(new GridLayout(ROWS, COLS));
+      keyPad.setLayout(new GridLayout(ROWS, COLS));
       for (int i = 0; i < ROWS * COLS; i++) {
          buttons[i] = new JButton();
          buttons[i].setText(" " + (i + 1));
          buttons[i].addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               ((JButton) e.getSource()).setText("click");      // FIXME:
+               displayField.setText(e.getActionCommand());
+               helper.addKey(e.getActionCommand());          // FIXME: calls addKey method from RPNCalcGUIHelper
+
             }
          });
          panels[i] = new JPanel();

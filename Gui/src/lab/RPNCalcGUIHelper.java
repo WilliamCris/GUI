@@ -8,11 +8,12 @@ public class RPNCalcGUIHelper {
 
    public RPNCalcGUIHelper() {
 
-
    }
    public String addKey(String key){
+      if(key.length() < 0){
 
 
+      }
       return key;
    }
 }
