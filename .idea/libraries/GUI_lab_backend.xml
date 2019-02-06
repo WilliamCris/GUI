@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="GUI-lab-backend">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../RPNCalcJARfile/GUI-lab-backend.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
